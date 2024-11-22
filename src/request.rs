@@ -64,7 +64,14 @@ impl Builder {
         Builder::new()
     }
 
-    
+    fn and_then<F>(self, func: F) -> Self
+    where 
+        F: FnOnce(Parts) -> Result<Parts>
+    {
+        Builder {
+            inner: self.
+        }
+    }
 }
 
 impl Default for Builder {
