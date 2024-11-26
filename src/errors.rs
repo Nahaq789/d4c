@@ -6,7 +6,7 @@ enum Errors {
     StatusCode,
 }
 
-enum HttpStatus {
+pub enum HttpStatus {
     // 1xx Informational
     Continue = 100,
     SwitchingProtocols = 101,

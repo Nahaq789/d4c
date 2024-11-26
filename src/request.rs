@@ -1,6 +1,6 @@
-use std::fmt::Debug;
+use std::{fmt::Debug, vec};
 
-use crate::{header::Header, method::{self, Method}};
+use crate::{errors, header::Header, method::{self, Method}};
 
 #[derive(Clone)]
 pub struct Request<T> {
@@ -18,7 +18,7 @@ pub struct Parts {
 impl Parts {
     pub fn new() -> Parts {
         Parts {
-            header: Header::default(),
+            header: vec![],
             uri: "hoge".to_string(),
             method: Method::default(),
         }
@@ -64,13 +64,8 @@ impl Builder {
         Builder::new()
     }
 
-    fn and_then<F>(self, func: F) -> Self
-    where 
-        F: FnOnce(Parts) -> Result<Parts>
-    {
-        Builder {
-            inner: self.
-        }
+    pub fn header<K, V>(&mut self, key: K, value: V) -> Builder {
+        self.inner.header.kv(key, value)
     }
 }
 
@@ -91,7 +86,7 @@ mod tests {
     fn test_header() {
         
         let parts = Parts {
-            header: Header::new(),
+            header: vec![],
             uri: "some uri".to_string(),
             method: Method::GET,
         };
