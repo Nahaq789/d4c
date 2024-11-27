@@ -1,6 +1,6 @@
-use std::{fmt::Debug, vec};
+use std::{collections::HashMap, fmt::Debug, vec};
 
-use crate::{errors, header::Header, method::{self, Method}};
+use crate::{errors, header::{HeaderKey, HeaderValue}, method::Method};
 
 #[derive(Clone)]
 pub struct Request<T> {
@@ -10,7 +10,7 @@ pub struct Request<T> {
 
 #[derive(Clone)]
 pub struct Parts {
-    header: Header,
+    header: HashMap<HeaderKey, HeaderValue>,
     uri: String,
     method: Method,
 }
@@ -18,7 +18,7 @@ pub struct Parts {
 impl Parts {
     pub fn new() -> Parts {
         Parts {
-            header: vec![],
+            header: HashMap::new(),
             uri: "hoge".to_string(),
             method: Method::default(),
         }
